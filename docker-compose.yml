@@ -1,6 +1,21 @@
+version: "3.9"
 services:
-  website:
-    image: nginx
-    ports:
-      - "8081:80"
+  postgres:
+    image: postgres:16.3
+    container_name: mvp_postgres
     restart: always
+    environment:
+      POSTGRES_USER: local-dev
+      POSTGRES_PASSWORD: dndandbnb
+      POSTGRES_DB: dnd
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      
+networks:
+    dnd_net:
+        driver: bridge
+        
+volumes:
+  pgdata:
